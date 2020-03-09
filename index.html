@@ -1,0 +1,386 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Name</title>
+
+    <!--LeafLet library-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+          integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+          crossorigin="" />
+    <!--LeafLet library-->
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+            integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+            crossorigin=""></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" />
+    <link rel="stylesheet" href="index.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/favicon.svg" type="image/svg" sizes="16x16">
+</head>
+<body>
+    <!--Step-1-->
+    <div class="step" id="step_1">
+        <div class="step_container">
+            <div class="num_container">
+                <div id="num_1" class="num"></div>
+            </div>
+            <div class="panel_container">
+                <div class="panel">
+                    <div class="instruction">
+                        <p>Вставьте в поле ссылку на фотоэлектрическую панель из <b>Rozetka.com.ua</b>:</p>
+                        <p class="greyText">Например: <span id="primer">https://rozetka.com.ua/180937912/p180937912/</span></p>
+                    </div>
+                    <form id="urlForm" action="/query_handler.php" method="GET">
+                        <input name="url" type="text" size="50" autocomplete="off" id="urlField">
+                        <br />
+                        <div id="urlButtonContainer">
+                            <input type="submit" value=" Получить данные панели " id="urlButton">
+                            <div id="urlButtonError" class="errorMessage"></div>
+                        </div>
+                    </form>
+                    <div class="instruction">
+                        <p>Или введите параметры вручную:</p>
+                    </div>
+                    <label for="priceField">Стоимость панели:</label>
+                    <div id="priceBlock" class="form_block">
+                        <input name="priceField" type="text" size="10" autocomplete="off" id="priceField">
+                        <select id="currencyField" name="currency">
+                            <option value="UAH" id="uah">UAH</option>
+                            <option value="USD" id="usd" disabled>USD</option>
+                            <option value="EUR" id="eur" disabled>EUR</option>
+                        </select>
+                        <div id="priceQuestion" class="question"></div>
+                    </div>
+                    <label for="panelTypeField">Тип панели:</label>
+                    <div id="typeBlock" class="form_block">
+                        <select id="panelTypeField" name="panelTypeField" list="panelTypeField">
+                            <option value="0" id="noneCristal" disabled selected></option>
+                            <option value="PolyCristal" id="PolyCristal">Поликристаллическая</option>
+                            <option value="MonoCristal" id="MonoCristal">Монокристаллическая</option>
+                        </select>
+                        <div id="typeQuestion" class="question"></div>
+                        <div id="typeIDN" class="IDN greyText" onclick="idnFunction('panelTypeField', 'PolyCristal')">Я не знаю</div>
+                    </div>
+                    <label for="pMaxField">Мощность панели (Вт):</label>
+                    <div id="pMaxBlock" class="form_block">
+                        <input name="pMax" type="text" size="10" autocomplete="off" id="pMaxField">
+                        <div id="pMaxQuestion" class="question"></div>
+                        <div id="pMaxIDN" class="IDN greyText" onclick="idnFunction('pMaxField', '320')">Я не знаю</div>
+                    </div>
+                    <label for="efficiencyField">КПД панели (%):</label>
+                    <div id="efficiencyBlock" class="form_block">
+                        <input name="efficiency" type="text" size="10" autocomplete="off" id="efficiencyField">
+                        <div id="efficiencyQuestion" class="question"></div>
+                        <div id="efficiencyIDN" class="IDN greyText" onclick="idnFunction('efficiencyField', '15')">Я не знаю</div>
+                    </div>
+                    <label for="panelsNumberField">Количество панелей (шт):</label>
+                    <div id="panelsNumberBlock" class="form_block">
+                        <input name="panelsNumber" type="text" size="10" autocomplete="off" id="panelsNumberField">
+                        <div id="panelsNumberQuestion" class="question"></div>
+                        <div id="panelsNumberIDN" class="IDN greyText" onclick="idnFunction('panelsNumberField', '12')">Я не знаю</div>
+                    </div>
+                </div>
+                <div class="graphic">
+                    <div id="panelImg" class=""></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Step-2-->
+    <div class="step" id="step_2">
+        <div class="step_container">
+            <div class="num_container">
+                <div id="num_2" class="num"></div>
+            </div>
+            <div class="panel_container">
+                <div class="panel">
+                    <div class="instruction">
+                        <p>Место установки панелей определить по месту нахождения Вашего устройства:</p>
+                    </div>
+                    <div id="" class="form_block">
+                        <button onclick="getLocation()">Определить геолокацию</button>
+                        <div id="getLocationQuestion" class="question"></div>
+                        <div id="getLocationError" class="errorMessage"></div>
+                    </div>
+                    <div class="instruction">
+                        <p>Или укажите место расположения на карте:</p>
+                    </div>
+
+                    <label for="installHeightField">Высота установки панелей (м):</label>
+                    <div id="installHeightBlock" class="form_block">
+                        <input name="installHeight" type="text" size="10" autocomplete="off" id="installHeightField">
+                        <div id="installHeightQuestion" class="question"></div>
+                        <div id="installHeightIDN" class="IDN greyText" onclick="idnFunction('installHeightField', '3')">Я не знаю</div>
+                    </div>
+                    <label for="latField">Ваша позиция:</label>
+                    <div id="" class="form_block">
+                        <div>Lat:</div>
+                        <input name="lat" type="text" size="10" autocomplete="off" id="latField">
+                        <div>Lon:</div>
+                        <input name="lon" type="text" size="10" autocomplete="off" id="lonField">
+                        <div id="lanlonQuestion" class="question"></div>
+                    </div>
+                    <label for="landHeightField">Высота местности над уровнем моря (м):</label>
+                    <div id="landHeightBlock" class="form_block">
+                        <input name="landHeight" type="text" size="10" autocomplete="off" id="landHeightField">
+                        <div id="landHeightRefresh" class="refresh"></div>
+                        <div id="landHeightQuestion" class="question"></div>
+                        <div id="landHeightIDN" class="IDN greyText" onclick="idnFunction('landHeightField', '100')">Я не знаю</div>
+                    </div>
+                    <label for="slopeField">Угол наклона панелей (&deg):</label>
+                    <div id="slopeBlock" class="form_block">
+                        <input name="slope" type="text" size="10" autocomplete="off" id="slopeField">
+                        <input type="checkbox" id="slopeOptimal" name="slopeOptimal" value="true" class="checkBox">
+                        <label for="slopeOptimal" class="checkBoxLabel"> Рассчитать оптимальный</label>
+                        <div id="slopeQuestion" class="question"></div>
+                    </div>
+                    <label for="azimutField">Азимут (&deg):</label>
+                    <div id="azimutBlock" class="form_block">
+                        <input name="azimut" type="text" size="10" autocomplete="off" id="azimutField">
+                        <input type="checkbox" id="azimutOptimal" name="azimutOptimal" value="true" class="checkBox">
+                        <label for="azimutOptimal" class="checkBoxLabel"> Рассчитать оптимальный</label>
+                        <div id="azimutQuestion" class="question"></div>
+                    </div>
+                    <div id="heightHorizonBlock" class="form_block">
+                        <input type="checkbox" id="heightHorizon" name="heightHorizon" value="true" class="checkBox">
+                        <label for="heightHorizon" class="checkBoxLabel"> Высокий горизонт</label>
+                        <div id="heightHorizonQuestion" class="question"></div>
+                    </div>
+                </div>
+                <div class="graphic">
+                    <div id="mapid" class=""></div>
+                    <div id="mapidControl" class="">
+                        <form>
+                            <input type="radio" id="map_plan" name="plan-satelite" value="map_plan" checked>
+                            <label for="map_plan">Карта</label><br>
+                            <input type="radio" id="map_satelite" name="plan-satelite" value="map_satelite">
+                            <label for="map_satelite">Спутник</label><br>
+                        </form>
+                        <button onclick="clearMarker()">Очистить <br />маркеры</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Step-3-->
+    <div class="step" id="step_3">
+        <div class="step_container">
+            <div class="num_container">
+                <div id="num_3" class="num"></div>
+            </div>
+            <div class="panel_container">
+                <div class="panel">
+                    <label for="monthField">Планируемая дата ввода в эксплуатацию (месяц/год):</label>
+                    <div id="monthBlock" class="form_block">
+                        <input name="month" type="month" id="monthField" onchange="dataCheckValue()">
+                        <div id="monthQuestion" class="question"></div>
+                        <div id="monthIDN" class="IDN greyText" onclick="currentDateFunction()">Текущая дата</div>
+                        <div id="monthError" class="errorMessage"></div>
+                    </div>
+                    <label for="greenTarifField">Стоимость зеленого тарифа (EUR/кВтч):</label>
+                    <div id="greenTarifBlock" class="form_block">
+                        <input name="greenTarif" type="text" size="10" autocomplete="off" id="greenTarifField">
+                        <div id="greenTarifRefresh" class="refresh" onclick="greenTarifFunc(date)"></div>
+                        <div id="greenTarifQuestion" class="question"></div>
+                        <div id="greenTarifError" class="errorMessage"></div>
+                    </div>
+                    <label for="onlineCurField">Текущий курс евро (UAH):</label>
+                    <div id="onlineCurBlock" class="form_block">
+                        <input name="onlineCur" type="text" size="10" autocomplete="off" id="onlineCurField">
+                        <div id="onlineCurRefresh" class="refresh" onclick="queryBank()"></div>
+                        <div id="onlineCurQuestion" class="question"></div>
+                        <div id="onlineCurError" class="errorMessage"></div>
+                    </div>
+                    <label for="inverterField">Выберите инвертер:</label>
+                    <div id="inverterBlock" class="form_block">
+                        <select id="inverterField" name="inverterField" list="inverter" onchange="inverterFunction()">
+                            <option value="0" id="noneInverter" disabled selected></option>
+                            <option value="inverter_4" id="inverter_4">3-ф инвертер AFORE (BNT005KTL) 5000 Вт</option>
+                            <option value="inverter_1" id="inverter_1">1-ф инвертер GoodWe (GW5048-EM) 5000 Вт</option>
+                            <option value="inverter_5" id="inverter_5">3-ф инвертер Trannergy (TRB010KTL) 5000 Вт</option>
+                            <option value="inverter_2" id="inverter_2">3-ф инвертер GoodWe (GW15KN-DT) 15000 Вт</option>
+                            <option value="inverter_3" id="inverter_3">3-ф инвертер GoodWe (GW25K-DT) 25000 Вт</option>
+                        </select>
+                        <div id="inverterQuestion" class="question"></div>
+                        <div id="inverterIDN" class="IDN greyText" onclick="idnFunction('inverterField', 'inverter_4'); inverterFunction()">Я не знаю</div>
+                    </div>
+                    <label for="additionalExpensesField">Дополнительные затраты (UAH):</label>
+                    <div id="additionalExpensesBlock" class="form_block">
+                        <input name="additionalExpenses" type="text" size="10" autocomplete="off" id="additionalExpensesField" onchange="dopCostsFunction()">
+                        <div id="additionalExpensesQuestion" class="question"></div>
+                        <div id="additionalExpensesIDN" class="IDN greyText" onclick="idnFunction('additionalExpensesField', '15000')">Я не знаю</div>
+                    </div>
+                </div>
+                <div class="graphic">
+                    <div id="inverterPhoto">
+
+                    </div>
+                    <div id="inverterDescription">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Step-4-->
+    <div class="step" id="step_4">
+        <div class="step_container">
+            <div class="num_container">
+                <div id="num_4" class="num"></div>
+            </div>
+            <div class="panel_container">
+                <div class="panel">
+                    <div id="calcBlock" class="form_block">
+                        <!--
+                        <button type="button" onclick="vars_EU_SCIENCE_HUB()">Запись переменных для запроса</button>
+                        <button type="button" onclick="query_EU_SCIENCE_HUB()">Выполнить запрос</button>
+                        <button type="button" onclick="monthLabelsCreater()">Записать массив месяцов</button>
+                        <button type="button" onclick="monthNumbersCreater()">monthNumbersCreater</button>
+                        <button type="button" onclick="dataCreater(request_EU_SCIENCE_HUB.outputs.monthly.fixed, monthNumbersMassiveMod, 'E_m')">dataCreater</button>
+                        <button type="button" onclick="chart_1()">Построить диаграмму</button>
+                        -->
+                        <div class="instruction">
+                            <p>Нажмите кнопку для выполнения расчетов:</p>
+                        </div>
+                        <button type="button" onclick="result()" id="resultButton">Выполнить расчет</button>
+                        <div id="resultError" class="errorMessage"></div>
+                    </div>
+                </div>
+                <div class="graphic">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="step" id="results">
+        <div class="step_container" id="result_container">
+            <div class="dataSet">
+                <div class="chart" id="chart_1_container">
+                    <canvas id="chart_1" width="200" height="100"></canvas>
+                </div>
+                <div class="dataTable">
+                    <table>
+                        <tr><th>Месяц</th><th>кВтч/месяц</th></tr>
+                        <tr><td id="t1_m1"></td><td id="t1_d1"></td></tr>
+                        <tr><td id="t1_m2"></td><td id="t1_d2"></td></tr>
+                        <tr><td id="t1_m3"></td><td id="t1_d3"></td></tr>
+                        <tr><td id="t1_m4"></td><td id="t1_d4"></td></tr>
+                        <tr><td id="t1_m5"></td><td id="t1_d5"></td></tr>
+                        <tr><td id="t1_m6"></td><td id="t1_d6"></td></tr>
+                        <tr><td id="t1_m7"></td><td id="t1_d7"></td></tr>
+                        <tr><td id="t1_m8"></td><td id="t1_d8"></td></tr>
+                        <tr><td id="t1_m9"></td><td id="t1_d9"></td></tr>
+                        <tr><td id="t1_m10"></td><td id="t1_d10"></td></tr>
+                        <tr><td id="t1_m11"></td><td id="t1_d11"></td></tr>
+                        <tr><td id="t1_m12"></td><td id="t1_d12"></td></tr>
+                    </table>
+                </div>
+            </div>
+            <div class="dataSet">
+                <div class="chart" id="chart_2_container">
+                    <canvas id="chart_2" width="200" height="100"></canvas>
+                </div>
+                <div class="dataTable">
+                    <table>
+                        <tr><th>Месяц</th><th>кВтч/сутки</th></tr>
+                        <tr><td id="t2_m1"></td><td id="t2_d1"></td></tr>
+                        <tr><td id="t2_m2"></td><td id="t2_d2"></td></tr>
+                        <tr><td id="t2_m3"></td><td id="t2_d3"></td></tr>
+                        <tr><td id="t2_m4"></td><td id="t2_d4"></td></tr>
+                        <tr><td id="t2_m5"></td><td id="t2_d5"></td></tr>
+                        <tr><td id="t2_m6"></td><td id="t2_d6"></td></tr>
+                        <tr><td id="t2_m7"></td><td id="t2_d7"></td></tr>
+                        <tr><td id="t2_m8"></td><td id="t2_d8"></td></tr>
+                        <tr><td id="t2_m9"></td><td id="t2_d9"></td></tr>
+                        <tr><td id="t2_m10"></td><td id="t2_d10"></td></tr>
+                        <tr><td id="t2_m11"></td><td id="t2_d11"></td></tr>
+                        <tr><td id="t2_m12"></td><td id="t2_d12"></td></tr>
+                    </table>
+                </div>
+            </div>
+            <div class="dataSet">
+                <div class="chart" id="chart_3_container">
+                    <canvas id="chart_3" width="200" height="100"></canvas>
+                </div>
+                <div class="dataTable">
+                    <table>
+                        <tr><th>Месяц</th><th>кВтч</th></tr>
+                        <tr><td id="t3_m1"></td><td id="t3_d1"></td></tr>
+                        <tr><td id="t3_m2"></td><td id="t3_d2"></td></tr>
+                        <tr><td id="t3_m3"></td><td id="t3_d3"></td></tr>
+                        <tr><td id="t3_m4"></td><td id="t3_d4"></td></tr>
+                        <tr><td id="t3_m5"></td><td id="t3_d5"></td></tr>
+                        <tr><td id="t3_m6"></td><td id="t3_d6"></td></tr>
+                        <tr><td id="t3_m7"></td><td id="t3_d7"></td></tr>
+                        <tr><td id="t3_m8"></td><td id="t3_d8"></td></tr>
+                        <tr><td id="t3_m9"></td><td id="t3_d9"></td></tr>
+                        <tr><td id="t3_m10"></td><td id="t3_d10"></td></tr>
+                        <tr><td id="t3_m11"></td><td id="t3_d11"></td></tr>
+                        <tr><td id="t3_m12"></td><td id="t3_d12"></td></tr>
+                    </table>
+                </div>
+            </div>
+            <div class="dataSet">
+                <div class="chart" id="chart_4_container">
+                    <canvas id="chart_4" width="200" height="100"></canvas>
+                </div>
+                <div class="dataTable">
+                    <table>
+                        <tr><th>Месяц</th><th>грн/месяц</th></tr>
+                        <tr><td id="t4_m1"></td><td id="t4_d1"></td></tr>
+                        <tr><td id="t4_m2"></td><td id="t4_d2"></td></tr>
+                        <tr><td id="t4_m3"></td><td id="t4_d3"></td></tr>
+                        <tr><td id="t4_m4"></td><td id="t4_d4"></td></tr>
+                        <tr><td id="t4_m5"></td><td id="t4_d5"></td></tr>
+                        <tr><td id="t4_m6"></td><td id="t4_d6"></td></tr>
+                        <tr><td id="t4_m7"></td><td id="t4_d7"></td></tr>
+                        <tr><td id="t4_m8"></td><td id="t4_d8"></td></tr>
+                        <tr><td id="t4_m9"></td><td id="t4_d9"></td></tr>
+                        <tr><td id="t4_m10"></td><td id="t4_d10"></td></tr>
+                        <tr><td id="t4_m11"></td><td id="t4_d11"></td></tr>
+                        <tr><td id="t4_m12"></td><td id="t4_d12"></td></tr>
+                    </table>
+                </div>
+            </div>
+            <div class="dataSet" id="finalResults">
+                <p class="headerTitle">Результаты расчетов</p>
+                <p>Годовое производство эл.энергии: <span class="finalResults_item" id="FR_annualPower"></span></p>
+                <p>Годовой доход по зеленому тарифу: <span class="finalResults_item" id="FR_annualMoney"></span></p>
+                <p>Общие затраты на инсталляцию: <span class="finalResults_item" id="FR_allCosts"></span></p>
+                <p>Срок окупаемости инсталляции: <span class="finalResults_item" id="FR_investTerm"></span></p>
+                <br />
+                <p class="headerTitle">Исходные данные</p>
+                <p>Панель: <span class="finalResults_item" id="FR_panelName"></span></p>
+                <p>Количество панелей: <span class="finalResults_item" id="FR_panelAmount"></span></p>
+                <p>Пиковая мощность фотоэлектрических панелей: <span class="finalResults_item" id="FR_panelPower"></span></p>
+                <p>Тип панели: <span class="finalResults_item" id="FR_panelType"></span></p>
+                <p>КПД панели: <span class="finalResults_item" id="FR_panelKPD"></span></p>
+                <p>Стоимость панели: <span class="finalResults_item" id="FR_panelCost"></span></p>
+                <p><b>Координаты инсталяции</b></p>
+                <p>Lat: <span class="finalResults_item" id="FR_Lat"></span></p>
+                <p>Lon: <span class="finalResults_item" id="FR_Lon"></span></p>
+                <p>Высота местности над уровнем моря: <span class="finalResults_item" id="FR_Alt"></span></p>
+                <p>Высота установки над землей: <span class="finalResults_item" id="FR_panelAlt"></span></p>
+                <p>Угол наклона: <span class="finalResults_item" id="FR_panelSlope"></span></p>
+                <p>Азимут: <span class="finalResults_item" id="FR_panelAzimut"></span></p>
+                <p>Высокий горизонт: <span class="finalResults_item" id="FR_HightHoriz"></span></p>
+                <p>Дата ввода в эксплуатацию: <span class="finalResults_item" id="FR_startDate"></span></p>
+                <p>Зеленый тариф: <span class="finalResults_item" id="FR_GreenTarif"></span></p>
+                <p>Курс евро: <span class="finalResults_item" id="FR_EURCurrency"></span></p>
+                <p>Инвертер: <span class="finalResults_item" id="FR_Inverter"></span></p>
+                <p>Дополнительные затраты: <span class="finalResults_item" id="FR_dopCosts"></span></p>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>
