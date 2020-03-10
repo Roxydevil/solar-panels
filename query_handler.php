@@ -35,7 +35,7 @@ error_reporting(E_ALL);
 
 	$url = $_GET['url'];
 	$html = curl_get($url);
-	var_fump($html);	
+	var_dump($html);	
 	//удаление тега HTML чтобы страница открывалась в браузере как текст
 	$safeHtml = strip_tags($html);
 
@@ -84,7 +84,7 @@ error_reporting(E_ALL);
 	$imgEndPosition = strpos($safeHtml, $imgEndWord, $imgStartPosition);
 	$img = substr($safeHtml, $imgStartPosition + strlen($imgStartWord), ($imgEndPosition - $imgStartPosition) - strlen($imgStartWord));
 	
-	var_fump($img);
+	var_dump($img);
 	//Добавить поиск из описания	
 	
 	
