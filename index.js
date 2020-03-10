@@ -43,7 +43,7 @@ form.addEventListener("submit", function (e) {
 //Пример ссылки заполнения поля
 document.getElementById('primer').addEventListener("click", function () {
     document.getElementById("urlField").value =
-        "https://rozetka.com.ua/180937912/p180937912/";
+        "https://cors-anywhere.herokuapp.com/rozetka.com.ua/180937912/p180937912/";
 });
 
 //функция заполнения панели параметров
