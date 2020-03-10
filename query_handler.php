@@ -22,12 +22,12 @@
 	$imgStartWord = '"image":"';
 	$imgEndWord = '","';
 
-	$price;
-	$currency;
-	$panelType;
-	$pmax;
-	$kpd;
-	$img;
+	$price = 1;
+	$currency = 2;
+	$panelType = 3;
+	$pmax = 4;
+	$kpd = 5;
+	$img = 6;
 
 
 	$url = $_GET['url'];
