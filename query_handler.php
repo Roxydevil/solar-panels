@@ -1,5 +1,7 @@
 <?php
-
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 	$html = null;
 	$safeHtml = null;
 	$url = null;
@@ -22,12 +24,12 @@
 	$imgStartWord = '"image":"';
 	$imgEndWord = '","';
 
-	$price = 1;
-	$currency = 2;
-	$panelType = 3;
-	$pmax = 4;
-	$kpd = 5;
-	$img = 6;
+	$price;
+	$currency;
+	$panelType;
+	$pmax;
+	$kpd;
+	$img;
 
 
 	$url = $_GET['url'];
@@ -94,7 +96,7 @@
 		'Efficiency' => $kpd, 
 		'Img' => $img
 		];
-	#header('Content-Type: application/json');
+	header('Content-Type: application/json');
 	echo json_encode($responseData);
 	
 	
@@ -112,7 +114,6 @@
 		curl_setopt($ch, CURLOPT_REFERER, $referer);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		$data = curl_exec($ch);
-		
 		curl_close($ch);
 		return $data;
 	};
