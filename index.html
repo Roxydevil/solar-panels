@@ -51,7 +51,7 @@
                             <option value="USD" id="usd" disabled>USD</option>
                             <option value="EUR" id="eur" disabled>EUR</option>
                         </select>
-                        <div id="priceQuestion" class="question"></div>
+                        <div id="priceQuestion" class="question"><span class="tooltiptext">Укажите стоимость одной панели</span></div>
                     </div>
                     <label for="panelTypeField">Тип панели:</label>
                     <div id="typeBlock" class="form_block">
@@ -60,25 +60,25 @@
                             <option value="PolyCristal" id="PolyCristal">Поликристаллическая</option>
                             <option value="MonoCristal" id="MonoCristal">Монокристаллическая</option>
                         </select>
-                        <div id="typeQuestion" class="question"></div>
+                        <div id="typeQuestion" class="question"><span class="tooltiptext">Укажите тип материала панели</span></div>
                         <div id="typeIDN" class="IDN greyText" onclick="idnFunction('panelTypeField', 'PolyCristal')">Я не знаю</div>
                     </div>
                     <label for="pMaxField">Мощность панели (Вт):</label>
                     <div id="pMaxBlock" class="form_block">
                         <input name="pMax" type="text" size="10" autocomplete="off" id="pMaxField">
-                        <div id="pMaxQuestion" class="question"></div>
+                        <div id="pMaxQuestion" class="question"><span class="tooltiptext">Пиковая мощность одной панели</span></div>
                         <div id="pMaxIDN" class="IDN greyText" onclick="idnFunction('pMaxField', '320')">Я не знаю</div>
                     </div>
                     <label for="efficiencyField">КПД панели (%):</label>
                     <div id="efficiencyBlock" class="form_block">
                         <input name="efficiency" type="text" size="10" autocomplete="off" id="efficiencyField">
-                        <div id="efficiencyQuestion" class="question"></div>
+                        <div id="efficiencyQuestion" class="question"><span class="tooltiptext">Эффективность панели</span></div>
                         <div id="efficiencyIDN" class="IDN greyText" onclick="idnFunction('efficiencyField', '15')">Я не знаю</div>
                     </div>
                     <label for="panelsNumberField">Количество панелей (шт):</label>
                     <div id="panelsNumberBlock" class="form_block">
                         <input name="panelsNumber" type="text" size="10" autocomplete="off" id="panelsNumberField">
-                        <div id="panelsNumberQuestion" class="question"></div>
+                        <div id="panelsNumberQuestion" class="question"><span class="tooltiptext">Чем больше панелей - тем больше мощность системы</span></div>
                         <div id="panelsNumberIDN" class="IDN greyText" onclick="idnFunction('panelsNumberField', '12')">Я не знаю</div>
                     </div>
                 </div>
@@ -102,7 +102,7 @@
                     </div>
                     <div id="" class="form_block">
                         <button onclick="getLocation()">Определить геолокацию</button>
-                        <div id="getLocationQuestion" class="question"></div>
+                        <div id="getLocationQuestion" class="question"><span class="tooltiptext">Будет определено положение Вашего устройства</span></div>
                         <div id="getLocationError" class="errorMessage"></div>
                     </div>
                     <div class="instruction">
@@ -112,7 +112,7 @@
                     <label for="installHeightField">Высота установки панелей (м):</label>
                     <div id="installHeightBlock" class="form_block">
                         <input name="installHeight" type="text" size="10" autocomplete="off" id="installHeightField">
-                        <div id="installHeightQuestion" class="question"></div>
+                        <div id="installHeightQuestion" class="question"><span class="tooltiptext">Высота от земли на которой будут установлены панели</span></div>
                         <div id="installHeightIDN" class="IDN greyText" onclick="idnFunction('installHeightField', '3')">Я не знаю</div>
                     </div>
                     <label for="latField">Ваша позиция:</label>
@@ -121,13 +121,13 @@
                         <input name="lat" type="text" size="10" autocomplete="off" id="latField">
                         <div>Lon:</div>
                         <input name="lon" type="text" size="10" autocomplete="off" id="lonField">
-                        <div id="lanlonQuestion" class="question"></div>
+                        <div id="lanlonQuestion" class="question"><span class="tooltiptext">Географические координаты расчитываются автоматически</span></div>
                     </div>
                     <label for="landHeightField">Высота местности над уровнем моря (м):</label>
                     <div id="landHeightBlock" class="form_block">
                         <input name="landHeight" type="text" size="10" autocomplete="off" id="landHeightField">
                         <div id="landHeightRefresh" class="refresh"></div>
-                        <div id="landHeightQuestion" class="question"></div>
+                        <div id="landHeightQuestion" class="question"><span class="tooltiptext">Высота местности над уровнем моря</span></div>
                         <div id="landHeightIDN" class="IDN greyText" onclick="idnFunction('landHeightField', '100')">Я не знаю</div>
                     </div>
                     <label for="slopeField">Угол наклона панелей (&deg):</label>
@@ -135,19 +135,19 @@
                         <input name="slope" type="text" size="10" autocomplete="off" id="slopeField">
                         <input type="checkbox" id="slopeOptimal" name="slopeOptimal" value="true" class="checkBox">
                         <label for="slopeOptimal" class="checkBoxLabel"> Рассчитать оптимальный</label>
-                        <div id="slopeQuestion" class="question"></div>
+                        <div id="slopeQuestion" class="question"><span class="tooltiptext">Угол наклона панелей от земли</span></div>
                     </div>
                     <label for="azimutField">Азимут (&deg):</label>
                     <div id="azimutBlock" class="form_block">
                         <input name="azimut" type="text" size="10" autocomplete="off" id="azimutField">
                         <input type="checkbox" id="azimutOptimal" name="azimutOptimal" value="true" class="checkBox">
                         <label for="azimutOptimal" class="checkBoxLabel"> Рассчитать оптимальный</label>
-                        <div id="azimutQuestion" class="question"></div>
+                        <div id="azimutQuestion" class="question"><span class="tooltiptext">Угол поворота панелей от юга</span></div>
                     </div>
                     <div id="heightHorizonBlock" class="form_block">
                         <input type="checkbox" id="heightHorizon" name="heightHorizon" value="true" class="checkBox">
                         <label for="heightHorizon" class="checkBoxLabel"> Высокий горизонт</label>
-                        <div id="heightHorizonQuestion" class="question"></div>
+                        <div id="heightHorizonQuestion" class="question"><span class="tooltiptext">Горизонт выше уровня панелей</span></div>
                     </div>
                 </div>
                 <div class="graphic">
@@ -177,7 +177,7 @@
                     <label for="monthField">Планируемая дата ввода в эксплуатацию (месяц/год):</label>
                     <div id="monthBlock" class="form_block">
                         <input name="month" type="month" id="monthField" onchange="dataCheckValue()">
-                        <div id="monthQuestion" class="question"></div>
+                        <div id="monthQuestion" class="question"><span class="tooltiptext">Дата когда планируется ввод в эксплуатацию</span></div>
                         <div id="monthIDN" class="IDN greyText" onclick="currentDateFunction()">Текущая дата</div>
                         <div id="monthError" class="errorMessage"></div>
                     </div>
@@ -185,14 +185,14 @@
                     <div id="greenTarifBlock" class="form_block">
                         <input name="greenTarif" type="text" size="10" autocomplete="off" id="greenTarifField">
                         <div id="greenTarifRefresh" class="refresh" onclick="greenTarifFunc(date)"></div>
-                        <div id="greenTarifQuestion" class="question"></div>
+                        <div id="greenTarifQuestion" class="question"><span class="tooltiptext">Стоимость продажи эл.энергии в сеть</span></div>
                         <div id="greenTarifError" class="errorMessage"></div>
                     </div>
                     <label for="onlineCurField">Текущий курс евро (UAH):</label>
                     <div id="onlineCurBlock" class="form_block">
                         <input name="onlineCur" type="text" size="10" autocomplete="off" id="onlineCurField">
                         <div id="onlineCurRefresh" class="refresh" onclick="queryBank()"></div>
-                        <div id="onlineCurQuestion" class="question"></div>
+                        <div id="onlineCurQuestion" class="question"><span class="tooltiptext">Курс 1 евро к гривне</span></div>
                         <div id="onlineCurError" class="errorMessage"></div>
                     </div>
                     <label for="inverterField">Выберите инвертер:</label>
@@ -205,13 +205,13 @@
                             <option value="inverter_2" id="inverter_2">3-ф инвертер GoodWe (GW15KN-DT) 15000 Вт</option>
                             <option value="inverter_3" id="inverter_3">3-ф инвертер GoodWe (GW25K-DT) 25000 Вт</option>
                         </select>
-                        <div id="inverterQuestion" class="question"></div>
+                        <div id="inverterQuestion" class="question"><span class="tooltiptext">Инвертер для преобразования энергии и передачи в сеть</span></div>
                         <div id="inverterIDN" class="IDN greyText" onclick="idnFunction('inverterField', 'inverter_4'); inverterFunction()">Я не знаю</div>
                     </div>
                     <label for="additionalExpensesField">Дополнительные затраты (UAH):</label>
                     <div id="additionalExpensesBlock" class="form_block">
                         <input name="additionalExpenses" type="text" size="10" autocomplete="off" id="additionalExpensesField" onchange="dopCostsFunction()">
-                        <div id="additionalExpensesQuestion" class="question"></div>
+                        <div id="additionalExpensesQuestion" class="question"><span class="tooltiptext">Затраты на установку, подключение к сети и доп.материалы</span></div>
                         <div id="additionalExpensesIDN" class="IDN greyText" onclick="idnFunction('additionalExpensesField', '15000')">Я не знаю</div>
                     </div>
                 </div>

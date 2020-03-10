@@ -438,6 +438,8 @@ function result() {
         document.getElementById("onlineCurField").value != '' &&
         document.getElementById("inverterField").value != '') {
 
+        document.getElementById('results').style.display = 'flex';
+
         QUEUE_vars_EU_SCIENCE_HUB().
             then(QUEUE_query_EU_SCIENCE_HUB()).
             then(QUEUE_monthLabelsCreater()).
