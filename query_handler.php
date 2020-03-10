@@ -111,6 +111,7 @@
 		curl_setopt($ch, CURLOPT_REFERER, $referer);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		$data = curl_exec($ch);
+		echo 'Curl error: ' . curl_error($ch);
 		curl_close($ch);
 		return $data;
 	};
