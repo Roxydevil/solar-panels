@@ -9,6 +9,7 @@
 	$priceCount;
 	$currencyCount;
 	$panelTypeCount;
+	$pmaxCount;
 
 	$pricePosition;
 	$currencyPosition;
@@ -25,6 +26,7 @@
 	$panelTypeWord = 'Тип панели';
 	//$panelTypeWord_2 = 'Тип панели';
 	$pmaxWord = 'СТУ Максимальная Проектная мощность (Pmax)';
+	$pmaxWorld_2 = '(Pmax)';
 	$kpdWord = 'КПД модуля';
 	$imgStartWord = '"image":"';
 	$imgEndWord = '","';
@@ -69,7 +71,7 @@
 		$currencyCount = substr_count($safeHtml, $currencyWord_2);
 		if ($currencyCount > 0) {
 			$currencyPosition = strpos($safeHtml, $currencyWord_2);
-			$currency = substr($safeHtml, ($currencyPosition + 6), 3);
+			$currency = substr($safeHtml, ($currencyPosition + 7), 5);
 		}
 		else {
 			$currency = 'UAH*';
@@ -91,42 +93,24 @@
 		}
 	}
 	else {
-		$panelType = 'Не найдено';
-	}
+		$panelType = 'Не найдено'; //добавить еще вариант поиска по слову_2
+	};
 
-
-
-
-
-	/*
-	//поиск типа панели
-	$panelTypeCount = substr_count($safeHtml, $panelTypeWord);
-	if ($panelTypeCount > 0) {
-		$panelTypePosition = strpos($safeHtml, $panelTypeWord);
-		//$panelType = substr($safeHtml, ($panelTypePosition + 19), 22);
-		if ($panelType == 'Монокристал') {
-			$panelType = 'MonoCristal';
-		}
-		else if ($panelType == 'Поликристал') {
-			$panelType = 'PolyCristal';
-		}
-		else {
-			$panelType = 'Укажите тип вручную';
-		}
-	}
-	else {
-		$panelTypeCount = substr_count($safeHtml, $panelTypeWord_2);
-	}
-	*/
 
 	//поиск Pmax
-	$pmaxPosition = strpos($safeHtml, $pmaxWord);
-	if ($pmaxPosition == null) {
-		$pmax = 0;
+	$pmaxCount = substr_count($safeHtml, $pmaxWord);
+	if ($pmaxCount > 0) {
+		$pmaxPosition = strpos($safeHtml, $pmaxWord);
+		$pmax = substr($safeHtml, ($pmaxPosition + 74), 3);
 	}
 	else {
-		$pmax = substr($safeHtml, ($pmaxPosition + 74), 3);
+		$pmaxCount = substr_count($safeHtml, $pmaxWord_2);
+		if ($pmaxCount > 0) {
+			$pmaxPosition = strpos($safeHtml, $pmaxWord_2);
+			$pmax = substr($safeHtml, ($pmaxPosition + 7), 3);
+		}
 	};
+	
 	//поиск КПД
 	$kpdPosition = strpos($safeHtml, $kpdWord);
 	if ($kpdPosition == null) {
