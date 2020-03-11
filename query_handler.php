@@ -121,14 +121,14 @@
 	echo '<br>' . '$kpdCount' . $kpdCount . '<br>';
 	if ($kpdCount > 0) {
 		$kpdPosition = strpos($safeHtml, $kpdWord);
-		$kpd = substr($safeHtml, ($kpdPosition + 19), 2);
+		$kpd = substr($safeHtml, ($kpdPosition + 19), 4);
 	}
 	else {
 		$kpdCount = substr_count($safeHtml, $kpdWord_2);
 		echo '<br>' . '$kpdCount_2' . $kpdCount . '<br>';
 		if ($kpdCount > 0) {
 			$kpdPosition = strpos($safeHtml, $kpdWord_2);
-			$kpd = substr($safeHtml, ($kpdPosition + 19), 2);
+			$kpd = substr($safeHtml, ($kpdPosition + 19), 4);
 		}
 		else {
 			$kpd = 'Не найдено';
