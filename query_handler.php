@@ -5,9 +5,9 @@
 	$html = null;
 	$safeHtml = null;
 	$url = null;
-
 	
 	$priceCount;
+	$currencyCount;
 
 	$pricePosition;
 	$currencyPosition;
@@ -20,6 +20,7 @@
 	$priceWord = '"price":';
 	$priceWord_2 = ',"productPriceLocal":"';
 	$currencyWord = '"priceCurrency":';
+	$currencyWord_2 = ", unit: '";
 	$panelTypeWord = 'Тип панели';
 	$pmaxWord = 'СТУ Максимальная Проектная мощность (Pmax)';
 	$kpdWord = 'КПД модуля';
@@ -32,14 +33,12 @@
 	$pmax;
 	$kpd;
 	$img;
-	
 
 	$url = $_GET['url'];
 	$html = curl_get($url);
 		
 	//удаление тега HTML чтобы страница открывалась в браузере как текст
 	$safeHtml = strip_tags($html);
-
 	
 	//поиск цены товара
 	$priceCount = substr_count($safeHtml, $priceWord);
@@ -51,15 +50,31 @@
 		$priceCount = substr_count($safeHtml, $priceWord_2);
 		if ($priceCount > 0) {
 			$pricePosition = strpos($safeHtml, $priceWord_2);
-			$price = substr($safeHtml, ($pricePosition + 23), 4);
+			$price = substr($safeHtml, ($pricePosition + 22), 4);
 		}
 		else {
-			$price = 'Цена не обнаружена';
+			$price = 'Введите цену вручную';
 		}
 	};
+
 	//поиск валюты товара
-	$currencyPosition = strpos($safeHtml, $currencyWord);
-	$currency = substr($safeHtml, ($currencyPosition + 17), 3);
+	$currencyCount = substr_count($safeHtml, $currencyWord);
+	if ($currencyCount > 0) {
+		$currencyPosition = strpos($safeHtml, $currencyWord);
+		$currency = substr($safeHtml, ($currencyPosition + 17), 3);
+	}
+	else {
+		$currencyCount = substr_count($safeHtml, $currencyWord_2);
+		if ($currencyCount > 0) {
+			$currencyPosition = strpos($safeHtml, $currencyWord_2);
+			$currency = substr($safeHtml, ($currencyPosition + 8), 3);
+		}
+		else {
+			$currency = 'Введите валюту вручную';
+		}
+	}
+	
+
 	//поиск типа панели
 	$panelTypePosition = strpos($safeHtml, $panelTypeWord);
 	$panelType = substr($safeHtml, ($panelTypePosition + 19), 22);
