@@ -11,6 +11,7 @@
 	$panelTypeCount;
 	$pmaxCount;
 	$kpdCount;
+	$imgStartCount;
 
 	$pricePosition;
 	$currencyPosition;
@@ -31,6 +32,7 @@
 	$kpdWord = 'КПД модуля';
 	$kpdWord_2 = 'фективность:';
 	$imgStartWord = '"image":"';
+	$imgStartWord_2 = 'productImageURL":"';
 	$imgEndWord = '","';
 
 	$price;
@@ -143,9 +145,21 @@
 	
 	
 	//Поиск адреса картинки
-	$imgStartPosition = strpos($safeHtml, $imgStartWord);
-	$imgEndPosition = strpos($safeHtml, $imgEndWord, $imgStartPosition);
-	$img = substr($safeHtml, $imgStartPosition + strlen($imgStartWord), ($imgEndPosition - $imgStartPosition) - strlen($imgStartWord));
+	$imgStartCount = substr_count($safeHtml, $imgStartWord);
+	if ($imgStartCount > 0) {
+		$imgStartPosition = strpos($safeHtml, $imgStartWord);
+		$imgEndPosition = strpos($safeHtml, $imgEndWord, $imgStartPosition);
+		$img = substr($safeHtml, $imgStartPosition + strlen($imgStartWord), ($imgEndPosition - $imgStartPosition) - strlen($imgStartWord));
+	}
+	else {
+		$imgStartCount = substr_count($safeHtml, $imgStartWord_2);
+		if ($imgStartCount > 0) {
+			$imgStartPosition = strpos($safeHtml, $imgStartWord_2);
+			$imgEndPosition = strpos($safeHtml, $imgEndWord, $imgStartPosition);
+			$img = substr($safeHtml, $imgStartPosition + strlen($imgStartWord_2), ($imgEndPosition - $imgStartPosition) - strlen($imgStartWord_2));
+		}
+	};
+	
 	
 	
 	//Добавить поиск из описания	
