@@ -51,7 +51,7 @@
 		$priceCount = substr_count($safeHtml, $priceWord_2);
 		if ($priceCount > 0) {
 			$pricePosition = strpos($safeHtml, $priceWord_2);
-			$price = substr($safeHtml, ($pricePosition_2 + 23), 4);
+			$price = substr($safeHtml, ($pricePosition + 23), 4);
 		}
 		else {
 			$price = 'Цена не обнаружена';
