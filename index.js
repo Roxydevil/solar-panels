@@ -28,7 +28,7 @@ form.addEventListener("submit", function (e) {
         request.open("GET", "/query_handler.php?url=" + urlData, true);
         request.setRequestHeader("Content-type", "application/x-www-form-urlencoded; charset=UTF-8");
         request.send(null);
-
+console.log(request);//
         request.addEventListener("load", function () {
             jsonObj = JSON.parse(request.response);
             console.log(jsonObj);
