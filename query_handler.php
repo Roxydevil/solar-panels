@@ -71,7 +71,7 @@
 		$currencyCount = substr_count($safeHtml, $currencyWord_2);
 		if ($currencyCount > 0) {
 			$currencyPosition = strpos($safeHtml, $currencyWord_2);
-			$currency = substr($safeHtml, ($currencyPosition + 7), 5);
+			$currency = substr($safeHtml, ($currencyPosition + 7), 6);
 		}
 		else {
 			$currency = 'UAH*';
@@ -107,7 +107,7 @@
 		$pmaxCount = substr_count($safeHtml, $pmaxWord_2);
 		if ($pmaxCount > 0) {
 			$pmaxPosition = strpos($safeHtml, $pmaxWord_2);
-			$pmax = substr($safeHtml, ($pmaxPosition + 7), 3);
+			$pmax = substr($safeHtml, ($pmaxPosition + 7), 6);
 		}
 	};
 	
