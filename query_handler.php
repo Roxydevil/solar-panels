@@ -85,7 +85,7 @@ error_reporting(E_ALL);
 	
 	
 	//Добавить поиск из описания	
-*/	
+	
 	
 	//формирование JSON пакета
 	$responseData = [ 
@@ -98,12 +98,13 @@ error_reporting(E_ALL);
 		];
 	header('Content-Type: application/json');
 	echo json_encode($responseData);
-	
+*/	
 	
 	
 			
-	//print $safeHtml;
-	//file_put_contents('1.txt', $html);
+	print $safeHtml;
+	echo $safeHtml;
+	file_put_contents('1.txt', $html);
 
 	//функция curl
 	function curl_get($url, $referer = 'http://www.google.com') {
