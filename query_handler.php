@@ -157,7 +157,7 @@
 	header('Content-Type: application/json');
 	echo json_encode($responseData);
 	*/
-	echo '<br> ____________________________________ <br><br>'
+	echo '<br> ____________________________________ <br><br>';
 	echo 'Что получилось: <br>';
 	echo $price; 
 	echo '<br>';
