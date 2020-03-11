@@ -177,7 +177,7 @@
 		];
 	header('Content-Type: application/json');
 	echo json_encode($responseData);
-	
+	/*
 	echo '<br> ____________________________________ <br><br>';
 	echo 'Что получилось: <br>';
 	echo $price; 
@@ -195,7 +195,7 @@
 	//echo $html;
 	echo $safeHtml;
 	//file_put_contents('1.txt', $html);
-
+	*/
 	//функция curl
 	function curl_get($url, $referer = 'http://www.google.com') {
 		$ch = curl_init();
