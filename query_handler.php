@@ -18,6 +18,7 @@
 	$imgEndPosition;
 
 	$priceWord = '"price":';
+	$priceWord_2 = ',"productPriceLocal":"';
 	$currencyWord = '"priceCurrency":';
 	$panelTypeWord = 'Тип панели';
 	$pmaxWord = 'СТУ Максимальная Проектная мощность (Pmax)';
@@ -42,12 +43,19 @@
 	
 	//поиск цены товара
 	$priceCount = substr_count($safeHtml, $priceWord);
-	if ($priceCount == 1) {
+	if ($priceCount > 0) {
 		$pricePosition = strpos($safeHtml, $priceWord);
 		$price = substr($safeHtml, ($pricePosition + 9), 7); //работает только с 7 значной ценой
 	}
 	else {
-		$price = 0;
+		$priceCount = substr_count($safeHtml, $priceWord_2);
+		if ($priceCount > 0) {
+			$pricePosition = strpos($safeHtml, $priceWord_2);
+			$price = substr($safeHtml, ($pricePosition_2 + 23), 4);
+		}
+		else {
+			$price = 'Цена не обнаружена';
+		}
 	};
 	//поиск валюты товара
 	$currencyPosition = strpos($safeHtml, $currencyWord);
