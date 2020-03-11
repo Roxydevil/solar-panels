@@ -20,7 +20,7 @@
 	$priceWord = '"price":';
 	$priceWord_2 = ',"productPriceLocal":"';
 	$currencyWord = '"priceCurrency":';
-	$currencyWord_2 = ', unit: ';
+	$currencyWord_2 = 'unit:';
 	$panelTypeWord = 'Тип панели';
 	$pmaxWord = 'СТУ Максимальная Проектная мощность (Pmax)';
 	$kpdWord = 'КПД модуля';
@@ -59,12 +59,14 @@
 
 	//поиск валюты товара
 	$currencyCount = substr_count($safeHtml, $currencyWord);
+	echo $currencyCount;
 	if ($currencyCount > 0) {
 		$currencyPosition = strpos($safeHtml, $currencyWord);
 		$currency = substr($safeHtml, ($currencyPosition + 17), 3);
 	}
 	else {
 		$currencyCount = substr_count($safeHtml, $currencyWord_2);
+		echo $currencyCount;
 		if ($currencyCount > 0) {
 			$currencyPosition = strpos($safeHtml, $currencyWord_2);
 			$currency = substr($safeHtml, ($currencyPosition + 8), 3);
