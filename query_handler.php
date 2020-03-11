@@ -120,7 +120,6 @@
 	
 	//поиск КПД
 	$kpdCount = substr_count($safeHtml, $kpdWord);
-	echo '<br>' . '$kpdCount' . $kpdCount . '<br>';
 	if ($kpdCount > 0) {
 		$kpdPosition = strpos($safeHtml, $kpdWord);
 		$kpd = substr($safeHtml, ($kpdPosition + 19), 6);
@@ -130,7 +129,6 @@
 	}
 	else {
 		$kpdCount = substr_count($safeHtml, $kpdWord_2);
-		echo '<br>' . '$kpdCount_2' . $kpdCount . '<br>';
 		if ($kpdCount > 0) {
 			$kpdPosition = strpos($safeHtml, $kpdWord_2);
 			$kpd = substr($safeHtml, ($kpdPosition + 24), 6);
@@ -158,13 +156,16 @@
 			$imgEndPosition = strpos($safeHtml, $imgEndWord, $imgStartPosition);
 			$img = substr($safeHtml, $imgStartPosition + strlen($imgStartWord_2), ($imgEndPosition - $imgStartPosition) - strlen($imgStartWord_2));
 		}
+		else {
+			$img = 'img/default-img.svg';
+		}
 	};
 	
 	
 	
 	//Добавить поиск из описания	
 	
-	/*
+	
 	//формирование JSON пакета
 	$responseData = [ 
 		'Price' => $price, 
@@ -176,7 +177,7 @@
 		];
 	header('Content-Type: application/json');
 	echo json_encode($responseData);
-	*/
+	
 	echo '<br> ____________________________________ <br><br>';
 	echo 'Что получилось: <br>';
 	echo $price; 
