@@ -29,7 +29,7 @@
 	$pmaxWord = 'СТУ Максимальная Проектная мощность (Pmax)';
 	$pmaxWord_2 = '(Pmax)';
 	$kpdWord = 'КПД модуля';
-	$kpdWord_2 = 'КПД модуля';
+	$kpdWord_2 = 'фективность:';
 	$imgStartWord = '"image":"';
 	$imgEndWord = '","';
 
@@ -121,14 +121,14 @@
 	echo '<br>' . '$kpdCount' . $kpdCount . '<br>';
 	if ($kpdCount > 0) {
 		$kpdPosition = strpos($safeHtml, $kpdWord);
-		$kpd = substr($safeHtml, ($kpdPosition + 19), 4);
+		$kpd = substr($safeHtml, ($kpdPosition + 19), 20);
 	}
 	else {
 		$kpdCount = substr_count($safeHtml, $kpdWord_2);
 		echo '<br>' . '$kpdCount_2' . $kpdCount . '<br>';
 		if ($kpdCount > 0) {
 			$kpdPosition = strpos($safeHtml, $kpdWord_2);
-			$kpd = substr($safeHtml, ($kpdPosition + 19), 4);
+			$kpd = substr($safeHtml, ($kpdPosition + 22), 10);
 		}
 		else {
 			$kpd = 'Не найдено';
