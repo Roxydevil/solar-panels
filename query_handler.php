@@ -24,12 +24,12 @@ error_reporting(E_ALL);
 	$imgStartWord = '"image":"';
 	$imgEndWord = '","';
 
-	$price;
-	$currency;
-	$panelType;
-	$pmax;
-	$kpd;
-	$img;
+	$price = null;
+	$currency = null;
+	$panelType = null;
+	$pmax = null;
+	$kpd = null;
+	$img = null;
 
 
 	$url = $_GET['url'];
