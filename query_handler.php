@@ -88,7 +88,7 @@
 	
 	//Добавить поиск из описания	
 	
-	
+	/*
 	//формирование JSON пакета
 	$responseData = [ 
 		'Price' => $price, 
@@ -100,12 +100,23 @@
 		];
 	header('Content-Type: application/json');
 	echo json_encode($responseData);
+	*/
 	
-	
-	
-			
+	echo 'Что получилось: <br>';
+	echo $price; 
+	echo '<br>';
+	echo $currency;
+	echo '<br>';
+	echo $panelType;
+	echo '<br>';
+	echo $pmax;
+	echo '<br>';
+	echo $kpd;
+	echo '<br>';
+	echo $img;
+	echo 'Вся страница: <br>';
 	//echo $html;
-	//echo $safeHtml;
+	echo $safeHtml;
 	//file_put_contents('1.txt', $html);
 
 	//функция curl
