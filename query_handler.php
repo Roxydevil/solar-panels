@@ -1,11 +1,12 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+	ini_set('display_errors', 1);
+	ini_set('display_startup_errors', 1);
+	error_reporting(E_ALL);
 	$html = null;
 	$safeHtml = null;
 	$url = null;
 
+	
 	$priceCount;
 
 	$pricePosition;
@@ -24,20 +25,21 @@ error_reporting(E_ALL);
 	$imgStartWord = '"image":"';
 	$imgEndWord = '","';
 
-	$price = null;
-	$currency = null;
-	$panelType = null;
-	$pmax = null;
-	$kpd = null;
-	$img = null;
-
+	$price;
+	$currency;
+	$panelType;
+	$pmax;
+	$kpd;
+	$img;
+	
 
 	$url = $_GET['url'];
 	$html = curl_get($url);
 		
 	//удаление тега HTML чтобы страница открывалась в браузере как текст
 	$safeHtml = strip_tags($html);
-/*
+
+	
 	//поиск цены товара
 	$priceCount = substr_count($safeHtml, $priceWord);
 	if ($priceCount == 1) {
@@ -89,21 +91,21 @@ error_reporting(E_ALL);
 	
 	//формирование JSON пакета
 	$responseData = [ 
-		'Price' => 1, 
-		'Currency' => 'hello',
-		'PanelType' => 'jhgy145', 
-		'Pmax' => null, 
-		'Efficiency' => 5, 
-		'Img' => true
+		'Price' => $price, 
+		'Currency' => $currency,
+		'PanelType' => $panelType, 
+		'Pmax' => $pmax, 
+		'Efficiency' => $kpd, 
+		'Img' => $img
 		];
 	header('Content-Type: application/json');
 	echo json_encode($responseData);
-*/	
+	
 	
 	
 			
-	//print $safeHtml;
-	echo $html;
+	//echo $html;
+	//echo $safeHtml;
 	//file_put_contents('1.txt', $html);
 
 	//функция curl
@@ -111,7 +113,7 @@ error_reporting(E_ALL);
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $url);
 		curl_setopt($ch, CURLOPT_HEADER, 0);
-		curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:38.0) Gecko/20100101 Firefox/38.0");
+		curl_setopt($ch, CURLOPT_USERAGENT, "Chrome/59.0.3071.125 Mobile");
 		curl_setopt($ch, CURLOPT_REFERER, $referer);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		$data = curl_exec($ch);
