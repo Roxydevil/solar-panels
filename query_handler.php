@@ -103,7 +103,7 @@ error_reporting(E_ALL);
 	
 			
 	//print $safeHtml;
-	echo $safeHtml;
+	echo $html;
 	//file_put_contents('1.txt', $html);
 
 	//функция curl
