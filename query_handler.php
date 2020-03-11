@@ -20,7 +20,7 @@
 	$priceWord = '"price":';
 	$priceWord_2 = ',"productPriceLocal":"';
 	$currencyWord = '"priceCurrency":';
-	$currencyWord_2 = ", unit: '";
+	$currencyWord_2 = ', unit: ';
 	$panelTypeWord = 'Тип панели';
 	$pmaxWord = 'СТУ Максимальная Проектная мощность (Pmax)';
 	$kpdWord = 'КПД модуля';
