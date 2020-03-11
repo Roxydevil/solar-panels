@@ -102,9 +102,9 @@ error_reporting(E_ALL);
 	
 	
 			
-	print $safeHtml;
+	//print $safeHtml;
 	echo $safeHtml;
-	file_put_contents('1.txt', $html);
+	//file_put_contents('1.txt', $html);
 
 	//функция curl
 	function curl_get($url, $referer = 'http://www.google.com') {
