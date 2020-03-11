@@ -28,7 +28,9 @@ form.addEventListener("submit", function (e) {
         request.open("GET", "/query_handler.php?url=" + urlData, true);
         request.setRequestHeader("Content-type", "application/x-www-form-urlencoded; charset=UTF-8");
         request.send(null);
-console.log(request);//
+
+        console.log(request);
+
         request.addEventListener("load", function () {
             jsonObj = JSON.parse(request.response);
             console.log(jsonObj);
@@ -465,10 +467,10 @@ function result() {
 
                 console.log('Есть ответ сервера');
             }
-            if (counter > 6 || request_EU_SCIENCE_HUB != undefined) {
+            if (counter > 12 || request_EU_SCIENCE_HUB != undefined) {
                 clearInterval(timer);
             }
-            if (counter > 6 && request_EU_SCIENCE_HUB == undefined) {
+            if (counter > 12 && request_EU_SCIENCE_HUB == undefined) {
                 console.log('Нет ответа сервера');
                 document.getElementById('resultError').innerHTML = 'Нет ответа сервера';
             }
