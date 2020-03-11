@@ -26,7 +26,7 @@
 	$panelTypeWord = 'Тип панели';
 	//$panelTypeWord_2 = 'Тип панели';
 	$pmaxWord = 'СТУ Максимальная Проектная мощность (Pmax)';
-	$pmaxWorld_2 = '(Pmax)';
+	$pmaxWord_2 = '(Pmax)';
 	$kpdWord = 'КПД модуля';
 	$imgStartWord = '"image":"';
 	$imgEndWord = '","';
