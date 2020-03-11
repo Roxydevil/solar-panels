@@ -8,6 +8,7 @@
 	
 	$priceCount;
 	$currencyCount;
+	$panelTypeCount;
 
 	$pricePosition;
 	$currencyPosition;
@@ -22,6 +23,7 @@
 	$currencyWord = '"priceCurrency":';
 	$currencyWord_2 = 'unit:';
 	$panelTypeWord = 'Тип панели';
+	//$panelTypeWord_2 = 'Тип панели';
 	$pmaxWord = 'СТУ Максимальная Проектная мощность (Pmax)';
 	$kpdWord = 'КПД модуля';
 	$imgStartWord = '"image":"';
@@ -59,36 +61,64 @@
 
 	//поиск валюты товара
 	$currencyCount = substr_count($safeHtml, $currencyWord);
-	echo $currencyCount;
 	if ($currencyCount > 0) {
 		$currencyPosition = strpos($safeHtml, $currencyWord);
 		$currency = substr($safeHtml, ($currencyPosition + 17), 3);
 	}
 	else {
 		$currencyCount = substr_count($safeHtml, $currencyWord_2);
-		echo $currencyCount;
 		if ($currencyCount > 0) {
 			$currencyPosition = strpos($safeHtml, $currencyWord_2);
-			$currency = substr($safeHtml, ($currencyPosition + 8), 3);
+			$currency = substr($safeHtml, ($currencyPosition + 6), 3);
 		}
 		else {
-			$currency = 'Введите валюту вручную';
+			$currency = 'UAH*';
 		}
-	}
-	
+	};
 
 	//поиск типа панели
-	$panelTypePosition = strpos($safeHtml, $panelTypeWord);
-	$panelType = substr($safeHtml, ($panelTypePosition + 19), 22);
-	if ($panelType == 'Монокристал') {
-		$panelType = 'MonoCristal';
-	}
-	else if ($panelType == 'Поликристал') {
-		$panelType = 'PolyCristal';
+	$panelTypeCount = substr_count($safeHtml, $panelTypeWord);
+	if ($panelTypeCount > 0) {
+		$panelTypePosition = strpos($safeHtml, $panelTypeWord);
+		if (substr_count(substr($safeHtml, $panelTypePosition, 60), 'онокристал') > 0) {
+			$panelType = 'MonoCristal';
+		}
+		else if (substr_count(substr($safeHtml, $panelTypePosition, 60), 'оликристал') > 0) {
+			$panelType = 'PolyCristal';
+		}
+		else {
+			$panelType = 'Укажите тип вручную';
+		}
 	}
 	else {
-		$panelType = 0;
-	};
+		$panelType = 'Не найдено';
+	}
+
+
+
+
+
+	/*
+	//поиск типа панели
+	$panelTypeCount = substr_count($safeHtml, $panelTypeWord);
+	if ($panelTypeCount > 0) {
+		$panelTypePosition = strpos($safeHtml, $panelTypeWord);
+		//$panelType = substr($safeHtml, ($panelTypePosition + 19), 22);
+		if ($panelType == 'Монокристал') {
+			$panelType = 'MonoCristal';
+		}
+		else if ($panelType == 'Поликристал') {
+			$panelType = 'PolyCristal';
+		}
+		else {
+			$panelType = 'Укажите тип вручную';
+		}
+	}
+	else {
+		$panelTypeCount = substr_count($safeHtml, $panelTypeWord_2);
+	}
+	*/
+
 	//поиск Pmax
 	$pmaxPosition = strpos($safeHtml, $pmaxWord);
 	if ($pmaxPosition == null) {
