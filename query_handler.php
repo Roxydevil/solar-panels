@@ -10,6 +10,7 @@
 	$currencyCount;
 	$panelTypeCount;
 	$pmaxCount;
+	$kpdCount;
 
 	$pricePosition;
 	$currencyPosition;
@@ -28,6 +29,7 @@
 	$pmaxWord = 'СТУ Максимальная Проектная мощность (Pmax)';
 	$pmaxWord_2 = '(Pmax)';
 	$kpdWord = 'КПД модуля';
+	$kpdWord_2 = 'КПД модуля';
 	$imgStartWord = '"image":"';
 	$imgEndWord = '","';
 
@@ -109,16 +111,31 @@
 			$pmaxPosition = strpos($safeHtml, $pmaxWord_2);
 			$pmax = substr($safeHtml, ($pmaxPosition + 7), 6);
 		}
+		else {
+			$pmax = 'Не найдено';
+		}
 	};
 	
 	//поиск КПД
-	$kpdPosition = strpos($safeHtml, $kpdWord);
-	if ($kpdPosition == null) {
-		$kpd = 0;
+	$kpdCount = substr_count($safeHtml, $kpdWord);
+	echo '<br>' . '$kpdCount' . $kpdCount . '<br>';
+	if ($kpdCount > 0) {
+		$kpdPosition = strpos($safeHtml, $kpdWord);
+		$kpd = substr($safeHtml, ($kpdPosition + 19), 2);
 	}
 	else {
-		$kpd = substr($safeHtml, ($kpdPosition + 19), 2);
+		$kpdCount = substr_count($safeHtml, $kpdWord_2);
+		echo '<br>' . '$kpdCount_2' . $kpdCount . '<br>';
+		if ($kpdCount > 0) {
+			$kpdPosition = strpos($safeHtml, $kpdWord_2);
+			$kpd = substr($safeHtml, ($kpdPosition + 19), 2);
+		}
+		else {
+			$kpd = 'Не найдено';
+		}
 	};
+	
+	
 	//Поиск адреса картинки
 	$imgStartPosition = strpos($safeHtml, $imgStartWord);
 	$imgEndPosition = strpos($safeHtml, $imgEndWord, $imgStartPosition);
@@ -127,7 +144,7 @@
 	
 	//Добавить поиск из описания	
 	
-	/*
+	
 	//формирование JSON пакета
 	$responseData = [ 
 		'Price' => $price, 
@@ -139,8 +156,8 @@
 		];
 	header('Content-Type: application/json');
 	echo json_encode($responseData);
-	*/
 	
+	echo '<br> ____________________________________ <br><br>'
 	echo 'Что получилось: <br>';
 	echo $price; 
 	echo '<br>';
