@@ -37,7 +37,7 @@ error_reporting(E_ALL);
 		
 	//удаление тега HTML чтобы страница открывалась в браузере как текст
 	$safeHtml = strip_tags($html);
-
+/*
 	//поиск цены товара
 	$priceCount = substr_count($safeHtml, $priceWord);
 	if ($priceCount == 1) {
@@ -85,16 +85,16 @@ error_reporting(E_ALL);
 	
 	
 	//Добавить поиск из описания	
-	
+*/	
 	
 	//формирование JSON пакета
 	$responseData = [ 
-		'Price' => $price, 
-		'Currency' => $currency,
-		'PanelType' => $panelType, 
-		'Pmax' => $pmax, 
-		'Efficiency' => $kpd, 
-		'Img' => $img
+		'Price' => 1, 
+		'Currency' => 'hello',
+		'PanelType' => 'jhgy145', 
+		'Pmax' => null, 
+		'Efficiency' => 5, 
+		'Img' => true
 		];
 	header('Content-Type: application/json');
 	echo json_encode($responseData);
