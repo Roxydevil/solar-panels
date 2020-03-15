@@ -20,6 +20,16 @@
     <link rel="icon" href="img/favicon.svg" type="image/svg" sizes="16x16">
 </head>
 <body>
+    <!--Навигация-->
+    <div class="topnav" id="myTopnav">
+        <a href="https://solar-panels-ukraine.herokuapp.com/" class="active">Калькулятор</a>
+        <a href="contact.html">Контакты</a>
+        <a href="about.html">О проекте</a>
+        <a href="javascript:void(0);" class="icon" onclick="navbarFunction()">
+            <div class="fa fa-bars"></div>
+        </a>
+    </div>
+
     <!--Step-1-->
     <div class="step" id="step_1">
         <div class="step_container">
@@ -33,17 +43,18 @@
                         <p class="greyText">Например: <span id="primer">https://rozetka.com.ua/180937912/p180937912/</span></p>
                     </div>
                     <form id="urlForm" action="/query_handler.php" method="GET">
-                        <input name="url" type="text" size="50" autocomplete="off" id="urlField">
+                        <input name="url" type="text" autocomplete="off" id="urlField">
                         <br />
                         <div id="urlButtonContainer">
-                            <input type="submit" value=" Получить данные панели " id="urlButton">
+                            <input type="submit" value=" Получить данные панели " id="urlButton" onclick="stepHeightFunction('step_1', 'step1height_small', 'step1height_big'); showElements(['priceLabel', 'priceBlock', 'panelTypeLabel', 'typeBlock', 'pMaxLabel', 'pMaxBlock', 'efficiencyLabel', 'efficiencyBlock', 'panelImg'])">
                             <div id="urlButtonError" class="errorMessage"></div>
                         </div>
                     </form>
                     <div class="instruction">
                         <p>Или введите параметры вручную:</p>
                     </div>
-                    <label for="priceField">Стоимость панели:</label>
+                    <button onclick="stepHeightFunction('step_1', 'step1height_small', 'step1height_big'); showElements(['priceLabel', 'priceBlock', 'panelTypeLabel', 'typeBlock', 'pMaxLabel', 'pMaxBlock', 'efficiencyLabel', 'efficiencyBlock', 'panelImg'])">Ввести вручную</button>
+                    <label for="priceField" id="priceLabel">Стоимость панели:</label>
                     <div id="priceBlock" class="form_block">
                         <input name="priceField" type="text" size="10" autocomplete="off" id="priceField">
                         <select id="currencyField" name="currency">
@@ -53,7 +64,7 @@
                         </select>
                         <div id="priceQuestion" class="question"><span class="tooltiptext">Укажите стоимость одной панели</span></div>
                     </div>
-                    <label for="panelTypeField">Тип панели:</label>
+                    <label for="panelTypeField" id="panelTypeLabel">Тип панели:</label>
                     <div id="typeBlock" class="form_block">
                         <select id="panelTypeField" name="panelTypeField" list="panelTypeField">
                             <option value="0" id="noneCristal" disabled selected></option>
@@ -63,23 +74,25 @@
                         <div id="typeQuestion" class="question"><span class="tooltiptext">Укажите тип материала панели</span></div>
                         <div id="typeIDN" class="IDN greyText" onclick="idnFunction('panelTypeField', 'PolyCristal')">Я не знаю</div>
                     </div>
-                    <label for="pMaxField">Мощность панели (Вт):</label>
+                    <label for="pMaxField" id="pMaxLabel">Мощность панели (Вт):</label>
                     <div id="pMaxBlock" class="form_block">
                         <input name="pMax" type="text" size="10" autocomplete="off" id="pMaxField">
                         <div id="pMaxQuestion" class="question"><span class="tooltiptext">Пиковая мощность одной панели</span></div>
                         <div id="pMaxIDN" class="IDN greyText" onclick="idnFunction('pMaxField', '320')">Я не знаю</div>
                     </div>
-                    <label for="efficiencyField">КПД панели (%):</label>
+                    <label for="efficiencyField" id="efficiencyLabel">КПД панели (%):</label>
                     <div id="efficiencyBlock" class="form_block">
                         <input name="efficiency" type="text" size="10" autocomplete="off" id="efficiencyField">
                         <div id="efficiencyQuestion" class="question"><span class="tooltiptext">Эффективность панели</span></div>
                         <div id="efficiencyIDN" class="IDN greyText" onclick="idnFunction('efficiencyField', '15')">Я не знаю</div>
                     </div>
-                    <label for="panelsNumberField">Количество панелей (шт):</label>
+                    <label for="panelsNumberField" id="panelsNumberLabel">Количество панелей (шт):</label>
                     <div id="panelsNumberBlock" class="form_block">
-                        <input name="panelsNumber" type="text" size="10" autocomplete="off" id="panelsNumberField">
+                        <input name="panelsNumber" type="text" size="10" autocomplete="off" id="panelsNumberField" value="12">
                         <div id="panelsNumberQuestion" class="question"><span class="tooltiptext">Чем больше панелей - тем больше мощность системы</span></div>
+                        <!--
                         <div id="panelsNumberIDN" class="IDN greyText" onclick="idnFunction('panelsNumberField', '12')">Я не знаю</div>
+                        -->
                     </div>
                 </div>
                 <div class="graphic">
@@ -102,45 +115,48 @@
                     </div>
                     <div id="" class="form_block">
                         <button onclick="getLocation()">Определить геолокацию</button>
-                        <div id="getLocationQuestion" class="question"><span class="tooltiptext">Будет определено положение Вашего устройства</span></div>
+                        <div id="getLocationQuestion" class="question"><span class="tooltiptext">Необходимо будет разрешить браузеру определять Ваше местоположение</span></div>
                         <div id="getLocationError" class="errorMessage"></div>
                     </div>
                     <div class="instruction">
                         <p>Или укажите место расположения на карте:</p>
+                        <button onclick="stepHeightFunction('step_2', 'step2height_small', 'step2height_big'); showElements(['installHeightLabel', 'installHeightBlock', 'coordLabel', 'coordBlock', 'landHeightLabel', 'landHeightBlock', 'slopeLabel', 'slopeBlock', 'azimutLabel', 'azimutBlock', 'heightHorizonBlock', 'mapid', 'mapidControl'])">Указать на карте</button>
                     </div>
 
-                    <label for="installHeightField">Высота установки панелей (м):</label>
+                    <label for="installHeightField" id="installHeightLabel">Высота установки панелей (м):</label>
                     <div id="installHeightBlock" class="form_block">
                         <input name="installHeight" type="text" size="10" autocomplete="off" id="installHeightField">
                         <div id="installHeightQuestion" class="question"><span class="tooltiptext">Высота от земли на которой будут установлены панели</span></div>
+                        <!--
                         <div id="installHeightIDN" class="IDN greyText" onclick="idnFunction('installHeightField', '3')">Я не знаю</div>
+                        -->
                     </div>
-                    <label for="latField">Ваша позиция:</label>
-                    <div id="" class="form_block">
+                    <label for="latField" id="coordLabel">Ваша позиция:</label>
+                    <div id="coordBlock" class="form_block">
                         <div>Lat:</div>
                         <input name="lat" type="text" size="10" autocomplete="off" id="latField">
                         <div>Lon:</div>
                         <input name="lon" type="text" size="10" autocomplete="off" id="lonField">
                         <div id="lanlonQuestion" class="question"><span class="tooltiptext">Географические координаты расчитываются автоматически</span></div>
                     </div>
-                    <label for="landHeightField">Высота местности над уровнем моря (м):</label>
+                    <label for="landHeightField" id="landHeightLabel">Высота местности над уровнем моря (м):</label>
                     <div id="landHeightBlock" class="form_block">
                         <input name="landHeight" type="text" size="10" autocomplete="off" id="landHeightField">
                         <div id="landHeightRefresh" class="refresh"></div>
                         <div id="landHeightQuestion" class="question"><span class="tooltiptext">Высота местности над уровнем моря</span></div>
                         <div id="landHeightIDN" class="IDN greyText" onclick="idnFunction('landHeightField', '100')">Я не знаю</div>
                     </div>
-                    <label for="slopeField">Угол наклона панелей (&deg):</label>
+                    <label for="slopeField" id="slopeLabel">Угол наклона панелей (&deg):</label>
                     <div id="slopeBlock" class="form_block">
                         <input name="slope" type="text" size="10" autocomplete="off" id="slopeField">
-                        <input type="checkbox" id="slopeOptimal" name="slopeOptimal" value="true" class="checkBox">
+                        <input type="checkbox" id="slopeOptimal" name="slopeOptimal" value="true" class="checkBox" onchange="chbxDisField('slopeOptimal', 'slopeField')" checked>
                         <label for="slopeOptimal" class="checkBoxLabel"> Рассчитать оптимальный</label>
                         <div id="slopeQuestion" class="question"><span class="tooltiptext">Угол наклона панелей от земли</span></div>
                     </div>
-                    <label for="azimutField">Азимут (&deg):</label>
+                    <label for="azimutField" id="azimutLabel">Азимут (&deg):</label>
                     <div id="azimutBlock" class="form_block">
                         <input name="azimut" type="text" size="10" autocomplete="off" id="azimutField">
-                        <input type="checkbox" id="azimutOptimal" name="azimutOptimal" value="true" class="checkBox">
+                        <input type="checkbox" id="azimutOptimal" name="azimutOptimal" value="true" class="checkBox" onchange="chbxDisField('azimutOptimal', 'azimutField')" checked>
                         <label for="azimutOptimal" class="checkBoxLabel"> Рассчитать оптимальный</label>
                         <div id="azimutQuestion" class="question"><span class="tooltiptext">Угол поворота панелей от юга</span></div>
                     </div>
@@ -174,28 +190,32 @@
             </div>
             <div class="panel_container">
                 <div class="panel">
-                    <label for="monthField">Планируемая дата ввода в эксплуатацию (месяц/год):</label>
+                    <div class="instruction">
+                        <p>При необходимости укажите дополнительные параметры:</p>
+                    </div>
+                    <button onclick="stepHeightFunction('step_3', 'step3height_small', 'step3height_big'); showElements(['monthLabel', 'monthBlock', 'greenTarifLabel', 'greenTarifBlock', 'onlineCurLabel', 'onlineCurBlock', 'inverterLabel', 'inverterBlock', 'additionalExpensesLabel', 'additionalExpensesBlock', 'inverterPhoto', 'inverterDescription'])">Дополнительные параметры</button>
+                    <label for="monthField" id="monthLabel">Планируемая дата ввода в эксплуатацию (месяц/год):</label>
                     <div id="monthBlock" class="form_block">
                         <input name="month" type="month" id="monthField" onchange="dataCheckValue()">
-                        <div id="monthQuestion" class="question"><span class="tooltiptext">Дата когда планируется ввод в эксплуатацию</span></div>
+                        <div id="monthQuestion" class="question"><span class="tooltiptext">От даты ввода в эксплуатацию будет зависеть стоимость зеленого тарифа</span></div>
                         <div id="monthIDN" class="IDN greyText" onclick="currentDateFunction()">Текущая дата</div>
                         <div id="monthError" class="errorMessage"></div>
                     </div>
-                    <label for="greenTarifField">Стоимость зеленого тарифа (EUR/кВтч):</label>
+                    <label for="greenTarifField" id="greenTarifLabel">Стоимость зеленого тарифа (EUR/кВтч):</label>
                     <div id="greenTarifBlock" class="form_block">
                         <input name="greenTarif" type="text" size="10" autocomplete="off" id="greenTarifField">
                         <div id="greenTarifRefresh" class="refresh" onclick="greenTarifFunc(date)"></div>
                         <div id="greenTarifQuestion" class="question"><span class="tooltiptext">Стоимость продажи эл.энергии в сеть</span></div>
                         <div id="greenTarifError" class="errorMessage"></div>
                     </div>
-                    <label for="onlineCurField">Текущий курс евро (UAH):</label>
+                    <label for="onlineCurField" id="onlineCurLabel">Текущий курс евро (UAH):</label>
                     <div id="onlineCurBlock" class="form_block">
                         <input name="onlineCur" type="text" size="10" autocomplete="off" id="onlineCurField">
                         <div id="onlineCurRefresh" class="refresh" onclick="queryBank()"></div>
                         <div id="onlineCurQuestion" class="question"><span class="tooltiptext">Курс 1 евро к гривне</span></div>
                         <div id="onlineCurError" class="errorMessage"></div>
                     </div>
-                    <label for="inverterField">Выберите инвертер:</label>
+                    <label for="inverterField" id="inverterLabel">Выберите инвертер:</label>
                     <div id="inverterBlock" class="form_block">
                         <select id="inverterField" name="inverterField" list="inverter" onchange="inverterFunction()">
                             <option value="0" id="noneInverter" disabled selected></option>
@@ -208,7 +228,7 @@
                         <div id="inverterQuestion" class="question"><span class="tooltiptext">Инвертер для преобразования энергии и передачи в сеть</span></div>
                         <div id="inverterIDN" class="IDN greyText" onclick="idnFunction('inverterField', 'inverter_4'); inverterFunction()">Я не знаю</div>
                     </div>
-                    <label for="additionalExpensesField">Дополнительные затраты (UAH):</label>
+                    <label for="additionalExpensesField" id="additionalExpensesLabel">Дополнительные затраты (UAH):</label>
                     <div id="additionalExpensesBlock" class="form_block">
                         <input name="additionalExpenses" type="text" size="10" autocomplete="off" id="additionalExpensesField" onchange="dopCostsFunction()">
                         <div id="additionalExpensesQuestion" class="question"><span class="tooltiptext">Затраты на установку, подключение к сети и доп.материалы</span></div>
@@ -249,6 +269,27 @@
                         </div>
                         <button type="button" onclick="result()" id="resultButton">Выполнить расчет</button>
                         <div id="resultError" class="errorMessage"></div>
+                    </div>
+                </div>
+                <div class="graphic">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Step-5-->
+    <div class="step" id="step_5">
+        <div class="step_container">
+            <div class="num_container">
+                <div id="num_5" class="num"></div>
+            </div>
+            <div class="panel_container">
+                <div class="panel">
+                    <div id="" class="form_block">
+                        <div class="instruction">
+                            <p>Доход по зеленому тарифу от системы: <span id="miniResult">______</span> грн/год</p>
+                        </div>
                     </div>
                 </div>
                 <div class="graphic">
@@ -379,6 +420,11 @@
         </div>
     </div>
 
+
+    <!--Футер-->
+    <div class="footer">
+        <a href="mailto:Taranovaleksey@gmail.com">Taranovaleksey@gmail.com</a>
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
     <script src="index.js"></script>

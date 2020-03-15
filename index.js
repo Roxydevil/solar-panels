@@ -10,6 +10,19 @@ var azimut = 0;
 window.onload = function () {
     mapInit('mapbox/streets-v11');
     queryBank();
+    currentDateFunction();
+    idnFunction('inverterField', 'inverter_4');
+    inverterFunction();
+    idnFunction('additionalExpensesField', '15000');
+    idnFunction('installHeightField', '3');
+    document.getElementById('slopeField').disabled = true;
+    document.getElementById('azimutField').disabled = true;
+    hideElements(['priceLabel', 'priceBlock', 'panelTypeLabel', 'typeBlock', 'pMaxLabel', 'pMaxBlock', 'efficiencyLabel', 'efficiencyBlock', 'panelImg']);
+    stepHeightFunction('step_1', 'step1height_big', 'step1height_small');
+    hideElements(['installHeightLabel', 'installHeightBlock', 'coordLabel', 'coordBlock', 'landHeightLabel', 'landHeightBlock', 'slopeLabel', 'slopeBlock', 'azimutLabel', 'azimutBlock', 'heightHorizonBlock', 'mapid', 'mapidControl']);
+    stepHeightFunction('step_2', 'step2height_big', 'step2height_small');
+    hideElements(['monthLabel', 'monthBlock', 'greenTarifLabel', 'greenTarifBlock', 'onlineCurLabel', 'onlineCurBlock', 'inverterLabel', 'inverterBlock', 'additionalExpensesLabel', 'additionalExpensesBlock', 'inverterPhoto', 'inverterDescription']);
+    stepHeightFunction('step_3', 'step3height_big', 'step3height_small');
 };
 
 //Запрос на query_handler.php
@@ -97,6 +110,8 @@ function showPosition(position) {
     latField.value = lat;
     lonField.value = lon;
     landHeightQuery(lat, lon);
+    stepHeightFunction('step_2', 'step2height_small', 'step2height_big');
+    showElements(['installHeightLabel', 'installHeightBlock', 'coordLabel', 'coordBlock', 'landHeightLabel', 'landHeightBlock', 'slopeLabel', 'slopeBlock', 'azimutLabel', 'azimutBlock', 'heightHorizonBlock', 'mapid', 'mapidControl']);
 }
 function showError(error) {
     switch (error.code) {
@@ -320,9 +335,15 @@ function chart_1(chartID, dataChart, chartMainLabel, color) {
                         beginAtZero: true
                     }
                 }]
+            },
+            legend: {
+                labels: {
+                    fontColor: 'white'
+                }
             }
         }
     })
+    Chart.defaults.global.defaultFontColor = 'black';
 };
 function QUEUE_chart_1(chartID, dataChart, chartMainLabel, color) {
     return new Promise(function (resolve) {
@@ -452,11 +473,11 @@ function result() {
             console.log("turn no" + counter);
             if (request_EU_SCIENCE_HUB != undefined) {
                 QUEUE_dataCreater(request_EU_SCIENCE_HUB.outputs.monthly.fixed, monthNumbersMassiveMod, 'E_m', dataChart_1).
-                    then(QUEUE_chart_1('chart_1', dataChart_1, chartMainLabel_1, '#4d94ff')).
+                    then(QUEUE_chart_1('chart_1', dataChart_1, chartMainLabel_1, '#191966')).
                     then(QUEUE_dataCreater(request_EU_SCIENCE_HUB.outputs.monthly.fixed, monthNumbersMassiveMod, 'E_d', dataChart_2)).
-                    then(QUEUE_chart_1('chart_2', dataChart_2, chartMainLabel_2, 'blue')).
+                    then(QUEUE_chart_1('chart_2', dataChart_2, chartMainLabel_2, '#191966')).
                     then(QUEUE_dataCreater(request_EU_SCIENCE_HUB.outputs.monthly.fixed, monthNumbersMassiveMod, 'SD_m', dataChart_3)).
-                    then(QUEUE_chart_1('chart_3', dataChart_3, chartMainLabel_3, 'green')).
+                    then(QUEUE_chart_1('chart_3', dataChart_3, chartMainLabel_3, '#191966')).
                     then(QUEUE_finChartFunction(dataChart_1, greenTarif, document.getElementById('onlineCurField').value)).
                     then(QUEUE_chart_1('chart_4', finChartData, chartMainLabel_4, '#ff9900')).
                     then(QUEUE_finalResultsFunction()).
@@ -487,26 +508,29 @@ var requestBank;
 function queryBank() {
     document.getElementById('onlineCurError').innerHTML = '';
     requestBank = undefined;
+
+    var counterBank = 0;
     var queryBank_xhr = new XMLHttpRequest();
     queryBank_xhr.open('GET', 'https://cors-anywhere.herokuapp.com/bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json', true);
     queryBank_xhr.send();
-    queryBank_xhr.onreadystatechange = function () {
-        if (queryBank_xhr.readyState != 4) {
-            document.getElementById('onlineCurError').innerHTML = 'Обновите поле или заполните вручную';
-            return;
-        }
-        if (queryBank_xhr.status != 200) {
-            console.log(queryBank_xhr.status + ': ' + queryBank_xhr.statusText);
-            document.getElementById('onlineCurError').innerHTML = 'Обновите поле или заполните вручную';
-        }
-        else {
+    var timer = setInterval(function () {
+        if (queryBank_xhr.status == 200) {
             requestBank = queryBank_xhr.responseText;
             requestBank = JSON.parse(requestBank);
             document.getElementById('onlineCurField').value = requestBank[33].rate;
             document.getElementById('onlineCurError').innerHTML = '';
+            console.log('Есть ответ bank.gov.ua');
+        }
+        if (counterBank > 4 || queryBank_xhr.status == 200) {
+            clearInterval(timer);
             return requestBank;
         }
-    }
+        if (counterBank > 4 && queryBank_xhr.status != 200) {
+            document.getElementById('onlineCurField').value = 29;
+            console.log('Нет ответа bank.gov.ua');
+        }
+        counterBank++;
+    }, 2000);
 };
 
 //Проверка заполнения поля Дата введения в эксплуатацию
@@ -641,6 +665,8 @@ function finalResultsFunction() {
         accumulator_annualMoney + currentValue_annualMoney;
     document.getElementById('FR_annualMoney').innerHTML =
         finChartData.reduce(reducer_annualMoney) + ' грн';
+    document.getElementById('miniResult').innerHTML = 
+        finChartData.reduce(reducer_annualMoney);
 
     var totalCosts = parseInt(document.getElementById("priceField").value) *
         parseInt(panelsNumberField.value) +
@@ -650,7 +676,7 @@ function finalResultsFunction() {
         
     document.getElementById('FR_investTerm').innerHTML =
         (parseInt(totalCosts) / parseInt(finChartData.reduce(reducer_annualMoney))).toFixed(1) +
-        ' год(лет)';
+        ' лет';
 
     document.getElementById('FR_panelName').innerHTML = document.querySelector("#urlField").value;
     document.getElementById('FR_panelAmount').innerHTML = panelsNumberField.value;
@@ -725,8 +751,54 @@ function currentDateFunction() {
     dataCheckValue();
 }
 
+//Навигация Навбар
+function navbarFunction() {
+    var x = document.getElementById("myTopnav");
+    if (x.className === "topnav") {
+        x.className += " responsive";
+    } else {
+        x.className = "topnav";
+    }
+};
 
+//Отключение поля от чекбокса
+function chbxDisField(IDofChBx, IDofField) {
+    if (document.getElementById(IDofChBx).checked) {
+        document.getElementById(IDofField).disabled = true;
+    }
+    else {
+        document.getElementById(IDofField).disabled = false;
+    }
+};
 
+//Открывание дополнительных параметров
+function showElements(paramElements) {
+    if (paramElements != null) {
+        paramElements.forEach(function (item) {
+            document.getElementById(item).classList.remove("hiden");
+        });
+    }
+    else {
+        console.log('Вызов функции showElements без параметров');
+        return;
+    }
+};
 
+//Скрытие дополнительных параметров
+function hideElements(paramElements) {
+    if (paramElements != null) {
+        paramElements.forEach(function (item) {
+            document.getElementById(item).classList.add("hiden");
+        });
+    }
+    else {
+        console.log('Вызов функции hideElements без параметров');
+        return;
+    }
+};
 
-
+//Изменение высоты блока step
+function stepHeightFunction(stepID, removeClass, addClass) {
+    document.getElementById(stepID).classList.remove(removeClass);
+    document.getElementById(stepID).classList.add(addClass);
+};
