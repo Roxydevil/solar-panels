@@ -233,7 +233,7 @@ label {
     margin-left: 10px;
 }
 
-/*Форма-1______________________________________________*/
+/*Г”Г®Г°Г¬Г -1______________________________________________*/
 #primer {
     cursor: pointer;
 }
@@ -256,7 +256,7 @@ label {
     width: 400px;
 }
 
-/*Форма-2______________________________________________*/
+/*Г”Г®Г°Г¬Г -2______________________________________________*/
 #mapid {
     width: 250px;
     height: 300px;
@@ -295,7 +295,7 @@ label {
     margin-left: 0px;
 }
 
-/*Форма-3______________________________________________*/
+/*Г”Г®Г°Г¬Г -3______________________________________________*/
 #inverterPhoto {
     width: 250px;
     height: 190px;
@@ -310,7 +310,7 @@ label {
     margin-top: 5px;
 }
 
-/*Форма-4______________________________________________*/
+/*Г”Г®Г°Г¬Г -4______________________________________________*/
 #calcBlock {
     display: flex;
     flex-direction: column;
@@ -392,7 +392,7 @@ tr td:nth-child(1), tr th:nth-child(1) {
     font-weight: 600;
 }
 
-/*Навигация*/
+/*ГЌГ ГўГЁГЈГ Г¶ГЁГї*/
 .topnav {
     overflow: hidden;
     background-color: #0033cc;
@@ -443,7 +443,7 @@ tr td:nth-child(1), tr th:nth-child(1) {
     cursor: pointer;
     color: white;
 }
-/*Другие страницы*/
+/*Г„Г°ГіГЈГЁГҐ Г±ГІГ°Г Г­ГЁГ¶Г»*/
 #contactContainer {
     width: 100%;
     height: calc(100vh - 110px);
@@ -476,7 +476,7 @@ tr td:nth-child(1), tr th:nth-child(1) {
 }
 
 @media screen and (max-width: 1000px) {
-    /*Навигация*/
+    /*ГЌГ ГўГЁГЈГ Г¶ГЁГї*/
     .topnav a:not(:first-child) {
         display: none;
     }
@@ -585,6 +585,9 @@ tr td:nth-child(1), tr th:nth-child(1) {
         width: 80vw;
         min-height: 240px;
         height: 50vw;
+    }
+    #aboutText {
+    width: 96%;
     }
 }
 @media print {
