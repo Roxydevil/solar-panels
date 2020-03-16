@@ -28,7 +28,7 @@ window.onload = function () {
 //Запрос на query_handler.php
 var form = document.querySelector("#urlForm");
 var jsonObj;
-form.addEventListener("submit", function (e) {
+document.getElementById('urlButton').addEventListener("click", function (e) {
     e.preventDefault();
 
     var urlData = document.querySelector("#urlField").value;
@@ -523,14 +523,13 @@ function queryBank() {
         }
         if (counterBank > 4 || queryBank_xhr.status == 200) {
             clearInterval(timer);
-            return requestBank;
         }
         if (counterBank > 4 && queryBank_xhr.status != 200) {
             document.getElementById('onlineCurField').value = 29;
             console.log('Нет ответа bank.gov.ua');
         }
         counterBank++;
-    }, 2000);
+    }, 1000);
 };
 
 //Проверка заполнения поля Дата введения в эксплуатацию

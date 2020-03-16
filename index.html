@@ -46,7 +46,7 @@
                         <input name="url" type="text" autocomplete="off" id="urlField">
                         <br />
                         <div id="urlButtonContainer">
-                            <input type="submit" value=" Получить данные панели " id="urlButton" onclick="stepHeightFunction('step_1', 'step1height_small', 'step1height_big'); showElements(['priceLabel', 'priceBlock', 'panelTypeLabel', 'typeBlock', 'pMaxLabel', 'pMaxBlock', 'efficiencyLabel', 'efficiencyBlock', 'panelImg'])">
+                            <button id="urlButton" onclick="stepHeightFunction('step_1', 'step1height_small', 'step1height_big'); showElements(['priceLabel', 'priceBlock', 'panelTypeLabel', 'typeBlock', 'pMaxLabel', 'pMaxBlock', 'efficiencyLabel', 'efficiencyBlock', 'panelImg'])">Получить данные панели</button>
                             <div id="urlButtonError" class="errorMessage"></div>
                         </div>
                     </form>
@@ -271,9 +271,6 @@
                         <div id="resultError" class="errorMessage"></div>
                     </div>
                 </div>
-                <div class="graphic">
-
-                </div>
             </div>
         </div>
     </div>
@@ -291,9 +288,6 @@
                             <p>Доход по зеленому тарифу от системы: <span id="miniResult">______</span> грн/год</p>
                         </div>
                     </div>
-                </div>
-                <div class="graphic">
-
                 </div>
             </div>
         </div>
@@ -419,7 +413,6 @@
             </div>
         </div>
     </div>
-
 
     <!--Футер-->
     <div class="footer">

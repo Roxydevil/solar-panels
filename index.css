@@ -233,7 +233,7 @@ label {
     margin-left: 10px;
 }
 
-/*Г”Г®Г°Г¬Г -1______________________________________________*/
+/*Форма-1______________________________________________*/
 #primer {
     cursor: pointer;
 }
@@ -256,7 +256,7 @@ label {
     width: 400px;
 }
 
-/*Г”Г®Г°Г¬Г -2______________________________________________*/
+/*Форма-2______________________________________________*/
 #mapid {
     width: 250px;
     height: 300px;
@@ -295,7 +295,7 @@ label {
     margin-left: 0px;
 }
 
-/*Г”Г®Г°Г¬Г -3______________________________________________*/
+/*Форма-3______________________________________________*/
 #inverterPhoto {
     width: 250px;
     height: 190px;
@@ -310,7 +310,7 @@ label {
     margin-top: 5px;
 }
 
-/*Г”Г®Г°Г¬Г -4______________________________________________*/
+/*Форма-4______________________________________________*/
 #calcBlock {
     display: flex;
     flex-direction: column;
@@ -392,7 +392,7 @@ tr td:nth-child(1), tr th:nth-child(1) {
     font-weight: 600;
 }
 
-/*ГЌГ ГўГЁГЈГ Г¶ГЁГї*/
+/*Навигация*/
 .topnav {
     overflow: hidden;
     background-color: #0033cc;
@@ -443,7 +443,8 @@ tr td:nth-child(1), tr th:nth-child(1) {
     cursor: pointer;
     color: white;
 }
-/*Г„Г°ГіГЈГЁГҐ Г±ГІГ°Г Г­ГЁГ¶Г»*/
+
+/*Другие страницы*/
 #contactContainer {
     width: 100%;
     height: calc(100vh - 110px);
@@ -476,7 +477,7 @@ tr td:nth-child(1), tr th:nth-child(1) {
 }
 
 @media screen and (max-width: 1000px) {
-    /*ГЌГ ГўГЁГЈГ Г¶ГЁГї*/
+    /*Навигация*/
     .topnav a:not(:first-child) {
         display: none;
     }
@@ -499,7 +500,7 @@ tr td:nth-child(1), tr th:nth-child(1) {
         }
 
     body {
-        font-size: 14px;
+        font-size: 16px;
     }
     .step{
         width: 90%;
@@ -526,13 +527,13 @@ tr td:nth-child(1), tr th:nth-child(1) {
         align-items: center;
     }
     .step1height_small {
-        height: 320px;
+        height: 330px;
     }
     .step1height_big {
         height: 800px;
     }
     .step2height_small {
-        height: 220px;
+        height: 240px;
     }
     .step2height_big {
         height: 900px;
@@ -547,7 +548,7 @@ tr td:nth-child(1), tr th:nth-child(1) {
         height: 150px;
     }
     #step_5 {
-        height: 120px;
+        height: 150px;
     }
     .num_container {
         margin-top: 10px;
@@ -561,6 +562,9 @@ tr td:nth-child(1), tr th:nth-child(1) {
     }
     #panelImg {
         height: 200px;
+    }
+    #mapid {
+        width: 80%;
     }
     #lanlonQuestion, #slopeQuestion, #azimutQuestion {
         display: none;
@@ -583,16 +587,28 @@ tr td:nth-child(1), tr th:nth-child(1) {
     }
     .dataTable {
         margin: 10px 0 0 0;
-        width: 80vw;
+        width: 50vw;
         min-height: 240px;
         height: 50vw;
     }
     #aboutText {
-    width: 96%;
+        width: 96%;
+    }
+    
+}
+
+@media screen and (max-width: 400px) {
+    body {
+        font-size: 14px;
+    }
+    .dataTable {
+        width: 50vw;
     }
 }
+
 @media print {
     #step_1, #step_2, #step_3, #step_4, #step_5 {
         display: none;
     }
 }
+
