@@ -431,6 +431,9 @@ tr td:nth-child(1), tr th:nth-child(1) {
     height: 28px;
 }
 .footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
     overflow: hidden;
     background-color: #0033cc;
     width: 100%;
@@ -442,6 +445,11 @@ tr td:nth-child(1), tr th:nth-child(1) {
 .footer a {
     cursor: pointer;
     color: white;
+}
+
+#blank {
+    width: 100%;
+    height: 70px;
 }
 
 /*Другие страницы*/
