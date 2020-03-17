@@ -432,6 +432,7 @@ tr td:nth-child(1), tr th:nth-child(1) {
 }
 .footer {
     position: fixed;
+    z-index: 10000;
     bottom: 0;
     left: 0;
     overflow: hidden;
@@ -616,6 +617,12 @@ tr td:nth-child(1), tr th:nth-child(1) {
 
 @media print {
     #step_1, #step_2, #step_3, #step_4, #step_5 {
+        display: none;
+    }
+    .topnav {
+        display: none;
+    }
+    .footer {
         display: none;
     }
 }
