@@ -1,6 +1,8 @@
 ## Web application for calculating the financial model of a solar generating plant
 
-![main page](readme/figure1.jpg)
+![main page_1](readme/figure1.jpg)
+
+![main page_2](readme/figure2.jpg)
 
 Page is available on HerokuApp:
 
